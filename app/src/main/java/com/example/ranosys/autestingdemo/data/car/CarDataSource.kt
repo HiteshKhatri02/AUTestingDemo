@@ -7,9 +7,9 @@ import rx.Observable
  */
 interface CarDataSource {
 
-    fun getTasks(): Observable<List<Car>>
+    fun getCars(): Observable<List<Car>>
 
-    fun getTask(taskId: String): Observable<Car>
+    fun getCar(carId: String): Observable<Car>
 
     fun addCar(car: Car)
 

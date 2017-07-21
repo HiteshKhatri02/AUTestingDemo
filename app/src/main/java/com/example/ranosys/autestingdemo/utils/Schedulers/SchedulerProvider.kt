@@ -1,9 +1,11 @@
 package com.example.ranosys.autestingdemo.utils.Schedulers
 
 import android.support.annotation.NonNull
-import rx.Scheduler
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+
+
 
 /**
  * @author Hitesh Khatri
