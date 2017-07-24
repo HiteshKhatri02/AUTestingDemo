@@ -7,9 +7,6 @@ import android.database.sqlite.SQLiteDatabase
 import android.support.annotation.Nullable
 import android.text.TextUtils
 import com.example.ranosys.autestingdemo.data.DbHelper
-import com.example.ranosys.autestingdemo.data.user.User
-import com.example.ranosys.autestingdemo.data.user.UserLocalDataSource
-import com.example.ranosys.autestingdemo.data.user.UserPersistenceContract
 import com.example.ranosys.autestingdemo.utils.Schedulers.BaseSchedulerProvider
 import com.squareup.sqlbrite2.BriteDatabase
 import com.squareup.sqlbrite2.SqlBrite

@@ -12,13 +12,14 @@ import io.reactivex.schedulers.Schedulers
  */
 class SchedulerProvider() :BaseSchedulerProvider{
 
-    private var INSTANCE: SchedulerProvider? = null
-
-    @Synchronized fun getInstance(): SchedulerProvider? {
-        if (INSTANCE == null) {
-            INSTANCE = SchedulerProvider()
+    companion object {
+        private var INSTANCE: SchedulerProvider? = null
+        @Synchronized fun getInstance(): SchedulerProvider? {
+            if (INSTANCE == null) {
+                INSTANCE = SchedulerProvider()
+            }
+            return INSTANCE
         }
-        return INSTANCE
     }
 
     @NonNull override fun computation(): Scheduler {

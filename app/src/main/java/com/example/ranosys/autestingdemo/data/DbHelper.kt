@@ -41,7 +41,7 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context,
                         UserPersistenceContract.UserEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
                         UserPersistenceContract.UserEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
                         UserPersistenceContract.UserEntry.COLUMN_NAME_ADDRESS + TEXT_TYPE + COMMA_SEP +
-                        UserPersistenceContract.UserEntry.COLUMN_NAME_CAR + TEXT_TYPE +
+                        UserPersistenceContract.UserEntry.COLUMN_NAME_CAR_ID + TEXT_TYPE +
                         " )"
 
 

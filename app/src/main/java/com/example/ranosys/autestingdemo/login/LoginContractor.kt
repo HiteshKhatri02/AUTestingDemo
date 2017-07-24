@@ -17,6 +17,6 @@ interface LoginContractor {
     }
 
     interface Presenter : BasePresenter {
-
+        fun userLogin()
     }
 }
