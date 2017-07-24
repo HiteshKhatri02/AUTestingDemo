@@ -9,7 +9,7 @@ data class User(
         val id:String,
         val name:String,
         val address:String,
-        val carIds:ArrayList<Int>) {
+        val carIds:String) {
 
     override fun toString(): String {
         return "User(id='$id', name='$name', address='$address', carIds=$carIds)"

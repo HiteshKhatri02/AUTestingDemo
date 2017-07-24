@@ -2,7 +2,7 @@ package com.example.ranosys.autestingdemo.data.car
 
 
 /**
- * Created by hitesh on 19/7/17.
+ * @author Hitesh Khatri
  */
 object CarsPersistenceContract {
     init {
@@ -15,7 +15,7 @@ object CarsPersistenceContract {
         companion object {
             val TABLE_NAME = "car"
             val _ID = "_id"
-            val COLUMN_NAME_ENTRY_ID = "carid"
+            val COLUMN_NAME_ENTRY_ID = "car_id"
             val COLUMN_NAME_NAME = "name"
             val COLUMN_NAME_BRAND = "brand"
             val COLUMN_NAME_MODEL = "model"
