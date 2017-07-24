@@ -15,13 +15,13 @@ interface UserDataSource {
 
     fun addUser(user: User)
 
-    fun deleteUser(user: User)
-
     fun editUser(user: User)
 
-    fun purchasedUser(user: User)
+    fun deleteUser(user: User)
 
-    fun deleteUser()
+    fun deleteUser(userId: String)
+
+    fun deleteAllUsers()
 
     fun refreshUser()
 }
