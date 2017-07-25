@@ -21,6 +21,11 @@ class CarLocalDataSource(context: Context,
                          baseSchedulerProvider: BaseSchedulerProvider)
     :CarDataSource {
 
+    override fun getUserCar(carIds: String): Observable<MutableList<Car>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+
     private var mDatabaseHelper: BriteDatabase?=null
 
     private var mTaskMapperFunction: Function<Cursor, Car>
@@ -64,11 +69,7 @@ class CarLocalDataSource(context: Context,
         val model = cursor.getString(cursor.getColumnIndexOrThrow(CarsPersistenceContract.CarEntry.COLUMN_NAME_MODEL))
         val amount = cursor.getInt(cursor.getColumnIndexOrThrow(CarsPersistenceContract.CarEntry.COLUMN_NAME_AMOUNT))
         val currency = cursor.getString(cursor.getColumnIndexOrThrow(CarsPersistenceContract.CarEntry.COLUMN_NAME_CURRENCY))
-        val isPurchased =
-                cursor.getInt(
-                        cursor.getColumnIndexOrThrow(
-                                CarsPersistenceContract.CarEntry.COLUMN_NAME_IS_PURCHASED)) == 1
-        return Car(itemId,title,brand,model,amount,currency,isPurchased)
+              return Car(itemId,title,brand,model,amount,currency)
     }
 
     override fun getCars(): Observable<List<Car>> {
@@ -79,8 +80,7 @@ class CarLocalDataSource(context: Context,
                 CarsPersistenceContract.CarEntry.COLUMN_NAME_BRAND,
                 CarsPersistenceContract.CarEntry.COLUMN_NAME_MODEL,
                 CarsPersistenceContract.CarEntry.COLUMN_NAME_AMOUNT,
-                CarsPersistenceContract.CarEntry.COLUMN_NAME_CURRENCY,
-                CarsPersistenceContract.CarEntry.COLUMN_NAME_IS_PURCHASED)
+                CarsPersistenceContract.CarEntry.COLUMN_NAME_CURRENCY)
 
         val sql= String.format("SELECT %s FROM %s",
                 TextUtils.join(",",projection),
@@ -98,8 +98,7 @@ class CarLocalDataSource(context: Context,
                 CarsPersistenceContract.CarEntry.COLUMN_NAME_BRAND,
                 CarsPersistenceContract.CarEntry.COLUMN_NAME_MODEL,
                 CarsPersistenceContract.CarEntry.COLUMN_NAME_AMOUNT,
-                CarsPersistenceContract.CarEntry.COLUMN_NAME_CURRENCY,
-                CarsPersistenceContract.CarEntry.COLUMN_NAME_IS_PURCHASED)
+                CarsPersistenceContract.CarEntry.COLUMN_NAME_CURRENCY)
 
         val sql= String.format("SELECT %s FROM %s WHERE %s LIKE ?",
                 TextUtils.join(",",projection),
@@ -122,7 +121,6 @@ class CarLocalDataSource(context: Context,
         values.put(CarsPersistenceContract.CarEntry.COLUMN_NAME_MODEL,car.model)
         values.put(CarsPersistenceContract.CarEntry.COLUMN_NAME_AMOUNT,car.amount)
         values.put(CarsPersistenceContract.CarEntry.COLUMN_NAME_CURRENCY,car.currency)
-        values.put(CarsPersistenceContract.CarEntry.COLUMN_NAME_IS_PURCHASED,car.isPurchased)
 
         mDatabaseHelper!!.insert(
                 CarsPersistenceContract.CarEntry.TABLE_NAME,
@@ -148,7 +146,6 @@ class CarLocalDataSource(context: Context,
         values.put(CarsPersistenceContract.CarEntry.COLUMN_NAME_MODEL,car.model)
         values.put(CarsPersistenceContract.CarEntry.COLUMN_NAME_AMOUNT,car.amount)
         values.put(CarsPersistenceContract.CarEntry.COLUMN_NAME_CURRENCY,car.currency)
-        values.put(CarsPersistenceContract.CarEntry.COLUMN_NAME_IS_PURCHASED,car.isPurchased)
 
         val selection = CarsPersistenceContract.CarEntry.COLUMN_NAME_ENTRY_ID + " Like ?"
         mDatabaseHelper!!.update(CarsPersistenceContract.CarEntry.TABLE_NAME,values,
@@ -164,7 +161,6 @@ class CarLocalDataSource(context: Context,
         values.put(CarsPersistenceContract.CarEntry.COLUMN_NAME_MODEL,car.model)
         values.put(CarsPersistenceContract.CarEntry.COLUMN_NAME_AMOUNT,car.amount)
         values.put(CarsPersistenceContract.CarEntry.COLUMN_NAME_CURRENCY,car.currency)
-        values.put(CarsPersistenceContract.CarEntry.COLUMN_NAME_IS_PURCHASED,1)
 
         val selection = CarsPersistenceContract.CarEntry.COLUMN_NAME_ENTRY_ID + " Like ?"
         mDatabaseHelper!!.update(CarsPersistenceContract.CarEntry.TABLE_NAME,values,
@@ -178,4 +174,5 @@ class CarLocalDataSource(context: Context,
     override fun refreshCars() {
         //No implementation required.
     }
+
 }

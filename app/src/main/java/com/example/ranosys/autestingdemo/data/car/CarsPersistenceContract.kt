@@ -21,7 +21,6 @@ object CarsPersistenceContract {
             val COLUMN_NAME_MODEL = "model"
             val COLUMN_NAME_AMOUNT = "amount"
             val COLUMN_NAME_CURRENCY = "currency"
-            val COLUMN_NAME_IS_PURCHASED = "isPurchased"
         }
     }
 }// To prevent someone from accidentally instantiating the contract class,

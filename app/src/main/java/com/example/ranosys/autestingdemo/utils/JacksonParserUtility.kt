@@ -1,5 +1,7 @@
-package com.example.ranosys.autestingdemo.utils.Schedulers
+package com.example.ranosys.autestingdemo.utils
 
+import android.util.SparseArray
+import android.util.SparseIntArray
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 
@@ -10,14 +12,14 @@ import com.fasterxml.jackson.databind.SerializationFeature
 object JacksonParserUtility {
 
     //Method which convert array into string
-    fun convertCarIdsInJSONString(list:ArrayList<Int>):String{
+    fun convertIntSparseArrayToString(list:SparseIntArray):String{
         val mapper = ObjectMapper()
         mapper.enable(SerializationFeature.INDENT_OUTPUT)
         return mapper.writeValueAsString(list)
     }
 
-    fun convertCarIdsStringToArray(string: String):ArrayList<Int>{
+    fun convertCarStringToIntSparseArray(string: String):SparseIntArray{
         val mapper = ObjectMapper()
-        return mapper.readValue(string,ArrayList<Int>().javaClass)
+        return mapper.readValue(string,SparseIntArray::class.java)
     }
 }

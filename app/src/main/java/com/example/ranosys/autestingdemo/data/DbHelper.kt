@@ -31,8 +31,7 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context,
                         CarsPersistenceContract.CarEntry.COLUMN_NAME_BRAND + TEXT_TYPE + COMMA_SEP +
                         CarsPersistenceContract.CarEntry.COLUMN_NAME_MODEL + TEXT_TYPE + COMMA_SEP +
                         CarsPersistenceContract.CarEntry.COLUMN_NAME_AMOUNT + BOOLEAN_TYPE + COMMA_SEP +
-                        CarsPersistenceContract.CarEntry.COLUMN_NAME_CURRENCY + TEXT_TYPE + COMMA_SEP +
-                        CarsPersistenceContract.CarEntry.COLUMN_NAME_IS_PURCHASED + BOOLEAN_TYPE +
+                        CarsPersistenceContract.CarEntry.COLUMN_NAME_CURRENCY + TEXT_TYPE +
                         " )"
 
         val SQL_CREATE_USER_ENTRIES=
@@ -41,7 +40,8 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context,
                         UserPersistenceContract.UserEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
                         UserPersistenceContract.UserEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
                         UserPersistenceContract.UserEntry.COLUMN_NAME_ADDRESS + TEXT_TYPE + COMMA_SEP +
-                        UserPersistenceContract.UserEntry.COLUMN_NAME_CAR_ID + TEXT_TYPE +
+                        UserPersistenceContract.UserEntry.COLUMN_NAME_CAR_IDS + TEXT_TYPE + COMMA_SEP +
+                        UserPersistenceContract.UserEntry.COLUMN_NAME_CAR_MAP + TEXT_TYPE+
                         " )"
 
 

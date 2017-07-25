@@ -5,13 +5,13 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_user"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/tv_user_car"
+        android:layout_width="match_parent"
         android:textSize="22sp"
-        android:text="Hitesh Khatri"
         android:textStyle="bold"
         android:layout_height="35dp"
+        android:hint="@string/text_user_name"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="8dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,27 +23,26 @@
         app:layout_constraintHorizontal_bias="0.126"
         app:layout_constraintVertical_bias="0.32" />
 
-    <TextView
+    <EditText
         android:id="@+id/tv_address"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:textSize="20sp"
-        android:text="362/b street no. 5, Rathkhana Colony"
+        android:hint="@string/text_user_address"
         android:textStyle="normal"
         android:layout_height="wrap_content"
         android:maxLines="3"
-        android:layout_marginBottom="432dp"
+        android:layout_marginBottom="424dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="8dp"
-        app:layout_constraintHorizontal_bias="0.794" />
+        app:layout_constraintHorizontal_bias="0.14" />
 
-    <TextView
-        android:id="@+id/tv_cars"
+    <ListView
+        android:id="@+id/list_user_cars"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="BMW,Figo"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="8dp"
         app:layout_constraintStart_toStartOf="parent"

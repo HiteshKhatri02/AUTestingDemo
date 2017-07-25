@@ -12,6 +12,8 @@ interface CarDataSource {
 
     fun getCar(carId: String): Observable<Car>
 
+    fun getUserCar(carIds:String) : Observable<MutableList<Car>>
+
     fun addCar(car: Car)
 
     fun deleteCar(car: Car)

@@ -13,4 +13,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="no_item_available">No item availanle in the list.</string>
+    <string name="text_user_name">Username</string>
+    <string name="text_user_address">Address</string>
 </resources>

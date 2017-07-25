@@ -20,10 +20,11 @@ class UserPresenter(val context:Context,
                     val schedulerProvider : BaseSchedulerProvider ):UserContract.Presenter {
 
 
+
     init {
         checkNotNull(userView, {"userView cannot be null!"})
         checkNotNull(schedulerProvider, {"schedulerProvider cannot be null!"})
-        userView.presenter=this
+        userView.setPresenter(this)
     }
 
     var userLocalDataSource:UserLocalDataSource?=null
@@ -90,11 +91,20 @@ class UserPresenter(val context:Context,
         loadUsers(false,false)
     }
 
-    fun processTask(users:List<User> ){
+    fun processTask(users:MutableList<User> ){
         if (users.isEmpty()){
             userView.showNoTasks()
         }else{
             userView.showUsers(users)
         }
     }
+
+    override fun openUserDetail(user:User) {
+        userView.showUserDetail(user.id)
+    }
+
+    override fun destroy() {
+        userLocalDataSource=null
+    }
+
 }

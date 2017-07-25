@@ -14,7 +14,7 @@ interface UserContract {
 
         fun setLoadingIndicator(active: Boolean)
 
-        fun showUsers(users:List<User>){}
+        fun showUsers(users:MutableList<User>)
 
         fun showAddUser()
 
@@ -32,10 +32,11 @@ interface UserContract {
     }
 
     interface Presenter : BasePresenter{
-
         fun result(requestCode: Int, resultCode: Int)
         fun loadUser(forceUpdate: Boolean)
         fun addNewUser()
+        fun openUserDetail(user:User)
         fun clearCompletedTask()
+        fun destroy()
     }
 }

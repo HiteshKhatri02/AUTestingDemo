@@ -13,30 +13,20 @@ data class Car(
         val brand:String,
         val model:String,
         val amount:Int,
-        val currency:String,
-        val isPurchased:Boolean) {
-
-
+        val currency:String) {
 
 
     fun Car(name: String,brand: String, model: String){
 
-        Car(UUID.randomUUID().toString(),name,brand,model,amount,AppConstants.CURRENCY_IN_DOLLAR,false)
-    }
-
-
-    fun Car(name: String,brand: String, model: String,purchased:Boolean){
-
-        Car(UUID.randomUUID().toString(),name,brand,model,amount,AppConstants.CURRENCY_IN_DOLLAR,purchased)
+        Car(UUID.randomUUID().toString(),name,brand,model,amount,AppConstants.CURRENCY_IN_DOLLAR)
     }
 
     fun Car(id:String, name: String,brand: String, model: String){
 
-        Car(id,name,brand,model,amount,AppConstants.CURRENCY_IN_DOLLAR,false)
+        Car(id,name,brand,model,amount,AppConstants.CURRENCY_IN_DOLLAR)
     }
 
-
     override fun toString(): String {
-        return "Car(name='$name', brand='$brand', model='$model', amount=$amount, currency='$currency', isPurchased=$isPurchased)"
+        return "Car(name='$name', brand='$brand', model='$model', amount=$amount, currency='$currency')"
     }
 }
