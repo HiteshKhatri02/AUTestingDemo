@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.support.annotation.Nullable
 import android.text.TextUtils
 import com.example.ranosys.autestingdemo.data.DbHelper
+import com.example.ranosys.autestingdemo.data.user.UserPersistenceContract
 import com.example.ranosys.autestingdemo.utils.Schedulers.BaseSchedulerProvider
 import com.squareup.sqlbrite2.BriteDatabase
 import com.squareup.sqlbrite2.SqlBrite
@@ -21,9 +22,7 @@ class CarLocalDataSource(context: Context,
                          baseSchedulerProvider: BaseSchedulerProvider)
     :CarDataSource {
 
-    override fun getUserCar(carIds: String): Observable<MutableList<Car>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+
 
 
     private var mDatabaseHelper: BriteDatabase?=null
@@ -169,6 +168,27 @@ class CarLocalDataSource(context: Context,
 
     override fun deleteCars() {
         mDatabaseHelper!!.delete(CarsPersistenceContract.CarEntry.TABLE_NAME,null)
+    }
+
+    override fun getUserCar(carIds: String): Observable<MutableList<Car>> {
+        val projection= arrayOf(
+                CarsPersistenceContract.CarEntry.COLUMN_NAME_ENTRY_ID,
+                CarsPersistenceContract.CarEntry.COLUMN_NAME_NAME,
+                CarsPersistenceContract.CarEntry.COLUMN_NAME_BRAND,
+                CarsPersistenceContract.CarEntry.COLUMN_NAME_MODEL,
+                CarsPersistenceContract.CarEntry.COLUMN_NAME_AMOUNT,
+                CarsPersistenceContract.CarEntry.COLUMN_NAME_CURRENCY)
+
+        val sql= String.format("SELECT %s FROM %s LEFT JOIN %s WHERE IN (%s)",
+                TextUtils.join(",",projection),
+                CarsPersistenceContract.CarEntry.TABLE_NAME,
+                UserPersistenceContract.UserEntry.TABLE_NAME,
+                UserPersistenceContract.UserEntry.COLUMN_NAME_CAR_IDS)
+
+        return mDatabaseHelper!!.createQuery(
+                CarsPersistenceContract.CarEntry.TABLE_NAME,sql)
+                .mapToList(mTaskMapperFunction)
+
     }
 
     override fun refreshCars() {

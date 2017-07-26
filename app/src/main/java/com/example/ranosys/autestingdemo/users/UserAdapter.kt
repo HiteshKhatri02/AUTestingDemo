@@ -1,38 +1,63 @@
 package com.example.ranosys.autestingdemo.users
 
+import android.support.constraint.ConstraintLayout
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.TextView
+import com.example.ranosys.autestingdemo.R
 import com.example.ranosys.autestingdemo.data.user.User
 
 /**
  * @author Hitesh Khatri
  */
-class UserAdapter(list: MutableList<User>, itemClickListener: UserItemClickListener) : BaseAdapter() {
+class UserAdapter(list: MutableList<User>, presenter:UserContract.Presenter) : BaseAdapter() {
     private var list:MutableList<User>?=null
-    private var itemClick:UserItemClickListener
+    private var presenter:UserContract.Presenter
 
     init {
         setList(list)
-        this.itemClick=itemClickListener
+        this.presenter=presenter
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val viewHolder:ViewHolder
+        val view:View
+        if (null == convertView){
+            val inflater = LayoutInflater.from(parent?.context)
+            view = inflater.inflate(R.layout.layout_item_user,parent,false)
+            viewHolder = ViewHolder(view)
+            view.setTag(viewHolder)
+        }else{
+            view = convertView
+            viewHolder = view.tag as ViewHolder
+        }
+
+        viewHolder.userName.setText(list?.get(position)?.name)
+
+        viewHolder.address.setText(list?.get(position)?.address)
+
+        viewHolder.parentLayout.setOnClickListener({
+            presenter.openUserDetail(list!!.get(position))
+        })
+
+        return view
+
     }
 
     override fun getItem(position: Int): Any {
-        return this.list!!.get(position)
+        return this.list!![position]
     }
 
     override fun getItemId(position: Int): Long {
-       return position.toLong()
+        return position.toLong()
     }
 
     override fun getCount(): Int {
         if (null!=this.list){
             return this.list!!.size
-       }else{
+        }else{
             return 0
         }
     }
@@ -46,5 +71,21 @@ class UserAdapter(list: MutableList<User>, itemClickListener: UserItemClickListe
         this.list=list
     }
 
-    infix fun<T> Boolean.then(param:T):T?= if (this) param else null
+    inner class ViewHolder(val view: View){
+        var userName:TextView
+        var address:TextView
+        var parentLayout:ConstraintLayout
+
+        init {
+            userName = view.findViewById(R.id.tv_user) as TextView
+            address = view.findViewById(R.id.tv_address) as TextView
+            parentLayout=view.findViewById(R.id.parent_layout) as ConstraintLayout
+
+        }
+
+
+
+
+    }
+
 }

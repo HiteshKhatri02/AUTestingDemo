@@ -1,6 +1,7 @@
 package com.example.ranosys.autestingdemo.users
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.ListView
 import android.widget.TextView
 import com.example.ranosys.autestingdemo.R
+import com.example.ranosys.autestingdemo.addedituser.AddEditUserActivity
 import com.example.ranosys.autestingdemo.data.user.User
 import com.example.ranosys.autestingdemo.utils.Schedulers.BaseSchedulerProvider
 import com.example.ranosys.autestingdemo.utils.Schedulers.SchedulerProvider
@@ -18,7 +20,7 @@ import com.example.ranosys.autestingdemo.utils.Schedulers.SchedulerProvider
 /**
  *@author Hitesh Khatri
  */
-class UserFragment : Fragment(),UserContract.View,UserItemClickListener {
+class UserFragment : Fragment(),UserContract.View {
 
 
     private var presenter: UserContract.Presenter? = null
@@ -34,17 +36,21 @@ class UserFragment : Fragment(),UserContract.View,UserItemClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        listAdapter = UserAdapter(mutableListOf(),this)
+
         presenter?.start()
 
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
+
+        val root = inflater!!.inflate(R.layout.fragment_user, container, false)
+
         presenter= UserPresenter(activity,this,
                 SchedulerProvider.getInstance() as BaseSchedulerProvider)
 
-        val root = inflater!!.inflate(R.layout.fragment_user, container, false)
+        listAdapter = UserAdapter(mutableListOf(), presenter as UserPresenter)
+
 
         listView=root.findViewById(R.id.lv_user) as ListView
 
@@ -55,14 +61,12 @@ class UserFragment : Fragment(),UserContract.View,UserItemClickListener {
         return root
     }
 
-    override fun onItemClick(user: User) {
-        presenter!!.openUserDetail(user)
-    }
 
     override fun setLoadingIndicator(active: Boolean) {
         if (view==null){
             return
         }
+
         val refreshLayout = view!!.findViewById(R.id.refresh_layout) as SwipeRefreshLayout
         refreshLayout.post { refreshLayout.setRefreshing(active) }
 
@@ -77,7 +81,8 @@ class UserFragment : Fragment(),UserContract.View,UserItemClickListener {
     }
 
     override fun showAddUser() {
-        Log.d(TAG,"Show add user screen.")
+        val intent = Intent(activity,AddEditUserActivity::class.java)
+        intent.putExtra("action","ADD_USER")
     }
 
 
@@ -90,7 +95,7 @@ class UserFragment : Fragment(),UserContract.View,UserItemClickListener {
     }
 
     override fun showNoTasks() {
-       listView?.visibility=View.GONE
+        listView?.visibility=View.GONE
         noItemAvailable?.visibility = View.VISIBLE
     }
 

@@ -6,7 +6,7 @@ import com.example.ranosys.autestingdemo.data.car.Car
 import com.example.ranosys.autestingdemo.data.user.User
 
 /**
- * Created by hitesh on 24/7/17.
+ * @author Hitesh Khatri
  */
 interface UserContract {
 
@@ -32,11 +32,17 @@ interface UserContract {
     }
 
     interface Presenter : BasePresenter{
+
         fun result(requestCode: Int, resultCode: Int)
+
         fun loadUser(forceUpdate: Boolean)
+
         fun addNewUser()
+
         fun openUserDetail(user:User)
+
         fun clearCompletedTask()
+
         fun destroy()
     }
 }

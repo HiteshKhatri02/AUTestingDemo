@@ -65,7 +65,7 @@ class UserPresenter(val context:Context,
                 ?.subscribe(object : SingleObserver<MutableList<User>>{
                     override fun onSuccess(t: MutableList<User>) {
                         userView.setLoadingIndicator(false)
-                        processTask(t)
+                        processUser(t)
                     }
 
                     override fun onSubscribe(d: Disposable) {
@@ -91,7 +91,7 @@ class UserPresenter(val context:Context,
         loadUsers(false,false)
     }
 
-    fun processTask(users:MutableList<User> ){
+    fun processUser(users:MutableList<User> ){
         if (users.isEmpty()){
             userView.showNoTasks()
         }else{
@@ -106,5 +106,7 @@ class UserPresenter(val context:Context,
     override fun destroy() {
         userLocalDataSource=null
     }
+
+
 
 }
