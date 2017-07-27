@@ -2,21 +2,20 @@ package com.example.ranosys.autestingdemo.data.user
 
 import android.os.Parcel
 import android.os.Parcelable
-import android.util.SparseArray
+import java.util.*
+
 
 /**
  * @author Hitesh Khatri
  */
 data class User(
-        val id:String,
-        val name:String,
-        val address:String,
-        val carIds:String,
-        val carSparseArray: SparseArray<Any>) : Parcelable {
+        var id:String,
+        var name:String,
+        var address:String) : Parcelable {
 
-    override fun toString(): String {
-        return "User(id='$id', name='$name', address='$address', carIds='$carIds', carSparseArray=$carSparseArray)"
-    }
+    fun User(name: String, address: String) = User(UUID.randomUUID().toString(), name, address)
+
+    fun User() = User("","", "")
 
     companion object {
         @JvmField val CREATOR: Parcelable.Creator<User> = object : Parcelable.Creator<User> {
@@ -28,9 +27,7 @@ data class User(
     constructor(source: Parcel) : this(
     source.readString(),
     source.readString(),
-    source.readString(),
-    source.readString(),
-    source.readSparseArray(ClassLoader.getSystemClassLoader())
+    source.readString()
     )
 
     override fun describeContents() = 0
@@ -39,7 +36,5 @@ data class User(
         dest.writeString(id)
         dest.writeString(name)
         dest.writeString(address)
-        dest.writeString(carIds)
-        dest.writeSparseArray(carSparseArray)
     }
 }

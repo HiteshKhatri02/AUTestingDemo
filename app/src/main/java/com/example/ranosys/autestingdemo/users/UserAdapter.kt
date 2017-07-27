@@ -36,8 +36,6 @@ class UserAdapter(list: MutableList<User>, presenter:UserContract.Presenter) : B
 
         viewHolder.userName.setText(list?.get(position)?.name)
 
-        viewHolder.address.setText(list?.get(position)?.address)
-
         viewHolder.parentLayout.setOnClickListener({
             presenter.openUserDetail(list!!.get(position))
         })
@@ -73,19 +71,13 @@ class UserAdapter(list: MutableList<User>, presenter:UserContract.Presenter) : B
 
     inner class ViewHolder(val view: View){
         var userName:TextView
-        var address:TextView
         var parentLayout:ConstraintLayout
 
         init {
             userName = view.findViewById(R.id.tv_user) as TextView
-            address = view.findViewById(R.id.tv_address) as TextView
             parentLayout=view.findViewById(R.id.parent_layout) as ConstraintLayout
 
         }
-
-
-
-
     }
 
 }

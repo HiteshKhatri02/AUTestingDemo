@@ -1,16 +1,21 @@
 package com.example.ranosys.autestingdemo.utils.validations
 
+import android.text.TextUtils
+
 /**
- * Created by hitesh on 24/7/17.
+ * @author Hitesh Khatri
  */
 object InputValidations{
 
-    fun isEmailValid(email: String): Boolean {
-        return email.contains("@")
+    fun isUserNameValid(name:String) : Boolean{
+
+        return !TextUtils.isDigitsOnly(name) && !TextUtils.isEmpty(name)
     }
 
-    fun isPasswordValid(password: String): Boolean {
-        return password.length > 4
+
+    fun isAddressValid(name:String) : Boolean{
+
+        return !TextUtils.isEmpty(name)
     }
 
 }

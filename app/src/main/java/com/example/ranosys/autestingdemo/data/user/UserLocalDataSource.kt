@@ -63,12 +63,7 @@ class UserLocalDataSource(context: Context,
                 UserPersistenceContract.UserEntry.COLUMN_NAME_ENTRY_ID))
         val title=cursor.getString(cursor.getColumnIndexOrThrow(UserPersistenceContract.UserEntry.COLUMN_NAME_NAME))
         val address= cursor.getString(cursor.getColumnIndexOrThrow(UserPersistenceContract.UserEntry.COLUMN_NAME_ADDRESS))
-        val carIds= cursor.getString(cursor.getColumnIndexOrThrow(UserPersistenceContract.UserEntry.COLUMN_NAME_CAR_IDS))
-        val carMap= JacksonParserUtility.convertCarStringToIntSparseArray(
-                cursor.getString(
-                        cursor.getColumnIndexOrThrow(
-                                UserPersistenceContract.UserEntry.COLUMN_NAME_CAR_MAP)))
-        return User(itemId,title,address,carIds,carMap)
+        return User(itemId,title,address)
     }
 
     override fun getUsers(): Observable<MutableList<User>> {
@@ -76,9 +71,7 @@ class UserLocalDataSource(context: Context,
                 arrayOf<String>(
                         UserPersistenceContract.UserEntry.COLUMN_NAME_ENTRY_ID,
                         UserPersistenceContract.UserEntry.COLUMN_NAME_NAME,
-                        UserPersistenceContract.UserEntry.COLUMN_NAME_ADDRESS,
-                        UserPersistenceContract.UserEntry.COLUMN_NAME_CAR_IDS,
-                        UserPersistenceContract.UserEntry.COLUMN_NAME_CAR_MAP)
+                        UserPersistenceContract.UserEntry.COLUMN_NAME_ADDRESS)
 
         val sql = String.format("SELECT %s FROM %s", TextUtils.join(",", projection),
                 UserPersistenceContract.UserEntry.TABLE_NAME)
@@ -93,12 +86,11 @@ class UserLocalDataSource(context: Context,
                 arrayOf<String>(
                         UserPersistenceContract.UserEntry.COLUMN_NAME_ENTRY_ID,
                         UserPersistenceContract.UserEntry.COLUMN_NAME_NAME,
-                        UserPersistenceContract.UserEntry.COLUMN_NAME_ADDRESS,
-                        UserPersistenceContract.UserEntry.COLUMN_NAME_CAR_IDS,
-                        UserPersistenceContract.UserEntry.COLUMN_NAME_CAR_MAP)
+                        UserPersistenceContract.UserEntry.COLUMN_NAME_ADDRESS)
 
         val sql = String.format("SELECT %s FROM %s WHERE %s LIKE ?", TextUtils.join(",", projection),
                 UserPersistenceContract.UserEntry.TABLE_NAME,UserPersistenceContract.UserEntry.COLUMN_NAME_ENTRY_ID)
+
         return mDatabaseHelper!!.createQuery(UserPersistenceContract.UserEntry.TABLE_NAME,
                 sql).mapToOne(mTaskMapperFunction)
 
@@ -109,9 +101,7 @@ class UserLocalDataSource(context: Context,
         values.put(UserPersistenceContract.UserEntry.COLUMN_NAME_ENTRY_ID,user.id)
         values.put(UserPersistenceContract.UserEntry.COLUMN_NAME_NAME,user.name)
         values.put(UserPersistenceContract.UserEntry.COLUMN_NAME_ADDRESS,user.address)
-        values.put(UserPersistenceContract.UserEntry.COLUMN_NAME_CAR_IDS,user.carIds)
-        values.put(UserPersistenceContract.UserEntry.COLUMN_NAME_CAR_MAP,
-                JacksonParserUtility.convertIntSparseArrayToString(user.carSparseArray))
+
         mDatabaseHelper!!.insert(UserPersistenceContract.UserEntry.TABLE_NAME,
                 values,SQLiteDatabase.CONFLICT_REPLACE)
     }
@@ -123,6 +113,7 @@ class UserLocalDataSource(context: Context,
     override fun deleteUser(userId: String) {
         val selection=UserPersistenceContract.UserEntry.COLUMN_NAME_ENTRY_ID + " LIKE ?"
         val selectionArguments= userId
+
         mDatabaseHelper!!.delete(UserPersistenceContract.UserEntry.TABLE_NAME
                 ,selection, selectionArguments)
 
@@ -133,20 +124,19 @@ class UserLocalDataSource(context: Context,
         values.put(UserPersistenceContract.UserEntry.COLUMN_NAME_ENTRY_ID,user.id)
         values.put(UserPersistenceContract.UserEntry.COLUMN_NAME_NAME,user.name)
         values.put(UserPersistenceContract.UserEntry.COLUMN_NAME_ADDRESS,user.address)
-        values.put(UserPersistenceContract.UserEntry.COLUMN_NAME_CAR_IDS,user.carIds)
-        values.put(UserPersistenceContract.UserEntry.COLUMN_NAME_CAR_MAP,
-                JacksonParserUtility.convertIntSparseArrayToString(user.carSparseArray))
         val selection = UserPersistenceContract.UserEntry.COLUMN_NAME_ENTRY_ID + " Like ?"
+
         mDatabaseHelper!!.update(UserPersistenceContract.UserEntry.TABLE_NAME,values,
                 selection,user.id)
     }
 
     override fun deleteAllUsers() {
+
         mDatabaseHelper!!.delete(UserPersistenceContract.UserEntry.TABLE_NAME,null)
     }
 
     override fun refreshUser() {
-       //No required
+        //No required
     }
 
 }

@@ -1,10 +1,9 @@
 package com.example.ranosys.autestingdemo.addedituser
 
 import android.content.Intent
-import android.util.SparseIntArray
+
 import com.example.ranosys.autestingdemo.BasePresenter
 import com.example.ranosys.autestingdemo.BaseView
-import com.example.ranosys.autestingdemo.data.car.Car
 import com.example.ranosys.autestingdemo.data.user.User
 
 /**
@@ -16,8 +15,6 @@ interface AddEditUserContractor {
 
         fun showUser()
 
-        fun showCars(cars:Car, car: SparseIntArray)
-
         fun setLoadingIndicator(boolean: Boolean)
 
         fun showAsAddUser()
@@ -26,9 +23,6 @@ interface AddEditUserContractor {
 
         fun showLoadingTaskError()
 
-        fun showNoCars()
-
-        fun showCars(cars:MutableList<Car>)
 
     }
 
@@ -36,17 +30,11 @@ interface AddEditUserContractor {
 
         fun destroy()
 
-        fun loadUserCars(forceUpdate:Boolean,
-                         showLoader:Boolean,
-                         carArray:String)
-
-        fun setCarPurchased(isPurchased:Boolean, key:Int)
-
         fun verifyAddEditUser(intent:Intent)
 
-        fun addUserDetails(user: User)
+        fun addUserDetails(user: User, view:android.view.View)
 
-        fun updateUserDetails(user:User)
+        fun updateUserDetails(user:User , view:android.view.View)
 
     }
 }

@@ -16,8 +16,6 @@ object UserPersistenceContract {
             val COLUMN_NAME_ENTRY_ID = "userid"
             val COLUMN_NAME_NAME = "name"
             val COLUMN_NAME_ADDRESS = "address"
-            val COLUMN_NAME_CAR_IDS = "car_ids"
-            val COLUMN_NAME_CAR_MAP = "car_map"
         }
     }
 }

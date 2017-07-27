@@ -2,7 +2,6 @@ package com.example.ranosys.autestingdemo.users
 
 import com.example.ranosys.autestingdemo.BasePresenter
 import com.example.ranosys.autestingdemo.BaseView
-import com.example.ranosys.autestingdemo.data.car.Car
 import com.example.ranosys.autestingdemo.data.user.User
 
 /**

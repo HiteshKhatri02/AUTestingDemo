@@ -16,4 +16,6 @@
     <string name="no_item_available">No item availanle in the list.</string>
     <string name="text_user_name">Username</string>
     <string name="text_user_address">Address</string>
+    <string name="error_user_name">Username can not be empty or digits only.</string>
+    <string name="error_address">Adress can not be empty.</string>
 </resources>
