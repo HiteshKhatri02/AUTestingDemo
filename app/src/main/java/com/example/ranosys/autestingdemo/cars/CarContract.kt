@@ -6,7 +6,7 @@ import com.example.ranosys.autestingdemo.data.car.Car
 import com.example.ranosys.autestingdemo.data.user.User
 
 /**
- * Created by hitesh on 24/7/17.
+ * @author Hitesh Khatri
  */
 interface CarContract {
 
