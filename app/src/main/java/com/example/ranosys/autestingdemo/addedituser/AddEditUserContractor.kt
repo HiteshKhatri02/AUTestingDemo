@@ -13,8 +13,6 @@ interface AddEditUserContractor {
 
     interface View:BaseView<Presenter>{
 
-        fun showUser()
-
         fun setLoadingIndicator(boolean: Boolean)
 
         fun showAsAddUser()
@@ -22,6 +20,8 @@ interface AddEditUserContractor {
         fun showAsEditTask(user:User)
 
         fun showLoadingTaskError()
+
+        fun finishActivity()
 
 
     }

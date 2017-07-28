@@ -1,6 +1,5 @@
 package com.example.ranosys.autestingdemo.data.user
 
-import com.example.ranosys.autestingdemo.data.car.Car
 import io.reactivex.Observable
 
 

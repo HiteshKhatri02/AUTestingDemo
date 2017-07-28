@@ -10,7 +10,9 @@ import io.reactivex.Observer
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import io.reactivex.functions.Consumer
 import io.reactivex.functions.Function
+import io.reactivex.observers.DisposableObserver
 
 /**
  * @author Hitesh Khatri
@@ -19,22 +21,26 @@ class UserPresenter(val context:Context,
                     val  userView : UserContract.View,
                     val schedulerProvider : BaseSchedulerProvider ):UserContract.Presenter {
 
+    private var mFirstLoad = true
 
+    var compositDisposable:CompositeDisposable?=null
+    var userLocalDataSource:UserLocalDataSource?=null
 
     init {
         checkNotNull(userView, {"userView cannot be null!"})
         checkNotNull(schedulerProvider, {"schedulerProvider cannot be null!"})
+        userLocalDataSource = UserLocalDataSource(context,schedulerProvider )
+        compositDisposable = CompositeDisposable()
         userView.setPresenter(this)
     }
 
-    var userLocalDataSource:UserLocalDataSource?=null
-    private var mFirstLoad = true
-
-
-    override fun start() {
-        userLocalDataSource = UserLocalDataSource(context,schedulerProvider )
+    override fun subscribe() {
+        loadUser(false)
     }
 
+    override fun unsubscribe() {
+        compositDisposable?.clear()
+    }
 
     override fun result(requestCode: Int, resultCode: Int) {
 
@@ -42,7 +48,6 @@ class UserPresenter(val context:Context,
 
     override fun loadUser(forceUpdate: Boolean) {
         loadUsers(forceUpdate||mFirstLoad, true)
-
     }
 
     fun loadUsers(forceUpdate: Boolean, showLoader:Boolean){
@@ -54,30 +59,27 @@ class UserPresenter(val context:Context,
             userLocalDataSource!!.refreshUser()
         }
 
-        userLocalDataSource?.getUsers()
-                ?.flatMap(object :Function<List<User>, Observable<User>>{
-                    override fun apply(t: List<User>): Observable<User> {
-                        return Observable.fromIterable(t) }
-                })
-                ?.toList()
+        compositDisposable?.clear()
+
+        val dis:Disposable?=userLocalDataSource?.getUsers()
                 ?.subscribeOn(schedulerProvider.computation())
                 ?.observeOn(schedulerProvider.ui())
-                ?.subscribe(object : SingleObserver<MutableList<User>>{
-                    override fun onSuccess(t: MutableList<User>) {
-                        userView.setLoadingIndicator(false)
-                        processUser(t)
-                    }
-
-                    override fun onSubscribe(d: Disposable) {
-
-                    }
-
-
-
+                ?.subscribeWith(object : DisposableObserver<MutableList<User>>() {
                     override fun onError(e: Throwable) {
                         userView.showLoadingTaskError()
                     }
+
+                    override fun onComplete() {
+                        userView.setLoadingIndicator(false)
+                    }
+
+                    override fun onNext(t: MutableList<User>) {
+                        processUser(t)
+                        userView.setLoadingIndicator(false)
+                    }
+
                 })
+        compositDisposable?.add(dis!!)
     }
 
 
@@ -100,13 +102,11 @@ class UserPresenter(val context:Context,
     }
 
     override fun openUserDetail(user:User) {
-        userView.showUserDetail(user.id)
+        userView.showUserDetail(user)
     }
 
     override fun destroy() {
         userLocalDataSource=null
     }
-
-
 
 }

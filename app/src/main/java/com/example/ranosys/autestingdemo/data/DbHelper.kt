@@ -8,7 +8,7 @@ import com.example.ranosys.autestingdemo.utils.AppConstants
 
 
 /**
- * Created by hitesh on 21/7/17.
+ * @author Hitesh Khatri
  */
 class DbHelper(context: Context) : SQLiteOpenHelper(context,
         AppConstants.DATABASE_NAME,
@@ -20,18 +20,14 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context,
 
         val TEXT_TYPE = " TEXT"
         val COMMA_SEP = ","
-
-
-
+        val INT_TYPE = " INTEGER"
         val SQL_CREATE_USER_ENTRIES=
                 "CREATE TABLE IF NOT EXISTS " + UserPersistenceContract.UserEntry.TABLE_NAME + " (" +
-                        UserPersistenceContract.UserEntry._ID + TEXT_TYPE + " PRIMARY KEY," +
+                        UserPersistenceContract.UserEntry._ID + INT_TYPE + " PRIMARY KEY," +
                         UserPersistenceContract.UserEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
                         UserPersistenceContract.UserEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
                         UserPersistenceContract.UserEntry.COLUMN_NAME_ADDRESS + TEXT_TYPE +
                         " )"
-
-
     }
 
     override fun onCreate(p0: SQLiteDatabase?) {
@@ -41,8 +37,4 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context,
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
 
     }
-
-
-
-
 }

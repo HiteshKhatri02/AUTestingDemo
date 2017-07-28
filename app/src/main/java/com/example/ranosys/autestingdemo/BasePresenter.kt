@@ -5,5 +5,7 @@ package com.example.ranosys.autestingdemo
  */
 interface BasePresenter {
 
-    fun start()
+     fun subscribe()
+
+     fun unsubscribe()
 }

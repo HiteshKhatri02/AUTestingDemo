@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:textSize="22sp"
         android:textStyle="bold"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
         android:hint="@string/text_user_name"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="8dp"
@@ -20,8 +20,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/tv_address"
-        app:layout_constraintHorizontal_bias="0.126"
-        app:layout_constraintVertical_bias="0.32" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/tv_address"
@@ -31,13 +31,13 @@
         android:textStyle="normal"
         android:layout_height="wrap_content"
         android:maxLines="3"
-        android:layout_marginBottom="424dp"
+        android:layout_marginBottom="376dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="8dp"
-        app:layout_constraintHorizontal_bias="0.14" />
+        app:layout_constraintHorizontal_bias="0.0" />
 
 
     <android.support.design.widget.FloatingActionButton

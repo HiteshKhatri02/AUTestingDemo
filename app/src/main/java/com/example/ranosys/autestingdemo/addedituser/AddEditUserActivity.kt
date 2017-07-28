@@ -20,13 +20,15 @@ import java.util.*
  */
 class AddEditUserActivity : AppCompatActivity(),AddEditUserContractor.View{
 
+
     private var presenter : AddEditUserContractor.Presenter? = null
 
     var userName:EditText?=null
     var userAdress:EditText?=null
     var fab:FloatingActionButton?=null
     var isAddTask:Boolean=false
-    var user:User?=null
+    var user:User?=User()
+    var viewRoot:View?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,32 +41,35 @@ class AddEditUserActivity : AppCompatActivity(),AddEditUserContractor.View{
         userAdress = findViewById(R.id.tv_address) as EditText
         fab = findViewById(R.id.fab_add_user) as FloatingActionButton
 
+        presenter?.verifyAddEditUser(intent)
+
+        viewRoot = window.decorView.rootView
+
     }
 
     fun  onFABClicked(view: View){
+
+        user?.name = userName?.getText().toString().trim()
+        user?.address = userAdress?.getText().toString().trim()
+
         if (isAddTask){
             user?.id = UUID.randomUUID().toString()
-            user?.name = userName?.getText().toString().trim()
-            user?.address = userAdress?.getText().toString().trim()
-            presenter?.addUserDetails(user!!, view.rootView)
+            presenter?.addUserDetails(user!!, viewRoot!!)
 
         }else{
-            presenter?.updateUserDetails(user!!, view.rootView)
+
+            presenter?.updateUserDetails(user!!, viewRoot!!)
         }
     }
 
 
     override fun setPresenter(presenter: AddEditUserContractor.Presenter) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
-    override fun showUser() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 
     override fun setLoadingIndicator(boolean: Boolean) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
 
@@ -80,6 +85,7 @@ class AddEditUserActivity : AppCompatActivity(),AddEditUserContractor.View{
     }
 
     override fun showAsEditTask(user: User) {
+        this.user = user
         userName?.setText(user.name)
         userAdress?.setText(user.address)
         fab?.setImageResource(R.drawable.ic_update)
@@ -90,6 +96,8 @@ class AddEditUserActivity : AppCompatActivity(),AddEditUserContractor.View{
 
     }
 
-
+    override fun finishActivity() {
+        finish()
+    }
 
 }

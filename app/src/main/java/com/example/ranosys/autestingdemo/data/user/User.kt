@@ -15,8 +15,6 @@ data class User(
 
     fun User(name: String, address: String) = User(UUID.randomUUID().toString(), name, address)
 
-    fun User() = User("","", "")
-
     companion object {
         @JvmField val CREATOR: Parcelable.Creator<User> = object : Parcelable.Creator<User> {
             override fun createFromParcel(source: Parcel): User = User(source)
@@ -24,11 +22,14 @@ data class User(
         }
     }
 
+    constructor():this("","", "")
+
+    constructor(name: String,address: String):this(UUID.randomUUID().toString(),name,address)
+
     constructor(source: Parcel) : this(
-    source.readString(),
-    source.readString(),
-    source.readString()
-    )
+            source.readString(),
+            source.readString(),
+            source.readString())
 
     override fun describeContents() = 0
 

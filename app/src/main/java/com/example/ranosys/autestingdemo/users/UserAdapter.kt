@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.ranosys.autestingdemo.R
 import com.example.ranosys.autestingdemo.data.user.User
@@ -13,7 +14,9 @@ import com.example.ranosys.autestingdemo.data.user.User
  * @author Hitesh Khatri
  */
 class UserAdapter(list: MutableList<User>, presenter:UserContract.Presenter) : BaseAdapter() {
+
     private var list:MutableList<User>?=null
+
     private var presenter:UserContract.Presenter
 
     init {
@@ -33,7 +36,6 @@ class UserAdapter(list: MutableList<User>, presenter:UserContract.Presenter) : B
             view = convertView
             viewHolder = view.tag as ViewHolder
         }
-
         viewHolder.userName.setText(list?.get(position)?.name)
 
         viewHolder.parentLayout.setOnClickListener({
@@ -62,22 +64,17 @@ class UserAdapter(list: MutableList<User>, presenter:UserContract.Presenter) : B
 
     fun swapData(list:MutableList<User>){
         setList(list)
-        notifyDataSetChanged()
-    }
+        notifyDataSetChanged() }
 
     fun setList(list: MutableList<User>){
-        this.list=list
-    }
+        this.list=list }
 
     inner class ViewHolder(val view: View){
         var userName:TextView
-        var parentLayout:ConstraintLayout
-
+        var parentLayout: LinearLayout
         init {
             userName = view.findViewById(R.id.tv_user) as TextView
-            parentLayout=view.findViewById(R.id.parent_layout) as ConstraintLayout
-
-        }
-    }
+            parentLayout=view.findViewById(R.id.parent_layout) as LinearLayout
+        } }
 
 }

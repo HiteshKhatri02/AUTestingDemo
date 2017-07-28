@@ -34,7 +34,7 @@ class UserLocalDataSource(context: Context,
 
         mDatabaseHelper = sqlBrite.wrapDatabaseHelper(dbhelper,baseSchedulerProvider.io())
 
-        //Task mapper function
+        // mapper function
         mTaskMapperFunction = Function<Cursor, User> { this.getUser(it) }
 
     }

@@ -19,15 +19,13 @@ interface UserContract {
 
         fun showAddCar()
 
-        fun showUserDetail(userId:String)
+        fun showUserDetail(user: User)
 
         fun showNoTasks()
 
         fun showLoadingTaskError()
 
         fun showAllUserDeleted()
-
-
     }
 
     interface Presenter : BasePresenter{
@@ -44,4 +42,5 @@ interface UserContract {
 
         fun destroy()
     }
+
 }
