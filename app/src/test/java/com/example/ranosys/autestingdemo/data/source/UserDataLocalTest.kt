@@ -1,11 +1,8 @@
 package com.example.ranosys.autestingdemo.data.source
 
-import com.example.ranosys.autestingdemo.data.user.User
 import com.example.ranosys.autestingdemo.data.user.UserDataSource
 import com.example.ranosys.autestingdemo.data.user.UserLocalDataSource
-import io.reactivex.Observable
 import org.junit.Before
-import org.junit.BeforeClass
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 
